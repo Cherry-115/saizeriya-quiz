@@ -1,3 +1,4 @@
+"use client"
 import db from "@/app/db/menu.json"
 import { useState } from "react";
 
@@ -12,31 +13,35 @@ function random_choose(data: a[]) {
   return data[index]
 }
 
-function quiz() {
-
-}
-
 export default function Page() {
-  const [isCorrect, setIsCorrect] = useState();
+  const [isCorrect, setIsCorrect] = useState<boolean>();
   const [input, setInput] = useState();
   const data = random_choose(db)
+
+  const b = () => {
+    if (data.id == input) {
+      setIsCorrect(true)
+    }
+  }
   return (
     <div>
       {
-        isCorrect ? (
-          <div>
-            
-          </div>
-        ) : ( 
         <>
           <p>question</p>
           <br />
           <p>{data.name}</p>
           <br />
           <input value={input} type="number" min={1000} max={9999} />
-          <button onClick={}>submit</button>
+          <button onClick={b}>submit</button>
         </>
-      )}
+      }
+      {
+        isCorrect ? (
+          <div>Correct!!</div>
+        ) : (
+          <div>Uncorrect...</div>
+        )
+      }
     </div>
   )
 }
