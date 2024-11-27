@@ -14,14 +14,20 @@ function random_choose(data: a[]) {
 }
 
 export default function Page() {
-  const [isCorrect, setIsCorrect] = useState<boolean>();
-  const [input, setInput] = useState();
-  const data = random_choose(db)
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [input, setInput] = useState<number | "">();
+  const [data, setData] = useState(random_choose(db));
 
   const b = () => {
     if (data.id == input) {
       setIsCorrect(true)
     }
+  }
+
+  const refresh = () => {
+    setIsCorrect(null);
+    setData(random_choose(db));
+    setInput("");
   }
   return (
     <div>
@@ -31,17 +37,13 @@ export default function Page() {
           <br />
           <p>{data.name}</p>
           <br />
-          <input value={input} type="number" min={1000} max={9999} />
+          <input value={input} onChange={e => setInput(e.target.value)} type="number" min={1000} max={9999} />
           <button onClick={b}>submit</button>
         </>
       }
-      {
-        isCorrect ? (
-          <div>Correct!!</div>
-        ) : (
-          <div>Uncorrect...</div>
-        )
-      }
+
+      <div>{isCorrect ? "correct" : "uncorrect"}</div>
+      <button onClick={refresh}>next</button>
     </div>
   )
 }
