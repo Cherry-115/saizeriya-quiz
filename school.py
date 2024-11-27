@@ -1,7 +1,16 @@
 import random
+import math
 
 print("input")
-NUM = random.random(1,100)
+NUM = math.floor(random.random() * 100)
+i = 0
 while True:
-    int(input())
-    
+    i += 1
+    k = int(input())
+    if NUM < k:
+        print("more litle")
+    elif NUM > k :
+        print("more big")
+    else:
+        print(f"correct {i}")
+        break
